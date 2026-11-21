@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Starter App</title>
+<meta name="description" content="Download and install the Starter App for Android.">
+<!-- Set these if the page is served from a custom domain; otherwise they're read from the GitHub Pages URL. -->
+<meta name="gh-owner" content="">
+<meta name="gh-repo" content="">
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #16181d; --muted: #5d6470;
+    --accent: #2e5bba; --accent-text: #ffffff; --border: #e3e6eb; --step: #eef2fb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1115; --card: #181b21; --text: #eceef2; --muted: #9aa1ad;
+      --accent: #6d95ec; --accent-text: #0f1115; --border: #2a2f38; --step: #1f2430;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 560px; margin: 0 auto; padding: 40px 16px 64px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; }
+  .head { display: flex; gap: 16px; align-items: center; }
+  .icon {
+    width: 64px; height: 64px; border-radius: 16px; background: #2e5bba; flex: none;
+    display: grid; place-items: center;
+  }
+  h1 { margin: 0; font-size: 1.6rem; line-height: 1.2; }
+  .meta { color: var(--muted); font-size: .9rem; margin-top: 2px; }
+  .download {
+    display: block; text-align: center; margin: 24px 0 8px; padding: 16px;
+    background: var(--accent); color: var(--accent-text); text-decoration: none;
+    font-weight: 600; font-size: 1.1rem; border-radius: 14px;
+  }
+  .download:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+  .small { color: var(--muted); font-size: .85rem; text-align: center; margin: 0; }
+  .qr { display: none; text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .qr #qrcode { display: inline-block; padding: 12px; background: #fff; border-radius: 12px; }
+  .qr #qrcode img, .qr #qrcode canvas { display: block; }
+  body.desktop .qr { display: block; }
+  h2 { font-size: 1.1rem; margin: 32px 0 12px; }
+  ol { margin: 0; padding: 0; list-style: none; counter-reset: s; }
+  ol li {
+    counter-increment: s; position: relative; padding: 12px 14px 12px 52px;
+    background: var(--step); border-radius: 12px; margin-bottom: 8px;
+  }
+  ol li::before {
+    content: counter(s); position: absolute; left: 14px; top: 12px;
+    width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text);
+    display: grid; place-items: center; font-size: .85rem; font-weight: 700;
+  }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { color: var(--muted); margin: 8px 0 0; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="head">
+      <div class="icon" aria-hidden="true">
+        <svg width="34" height="34" viewBox="34 34 40 40"><path fill="#fff" d="M48,34h12v14h14v12h-14v14h-12v-14h-14v-12h14z"/></svg>
+      </div>
+      <div>
+        <h1>Starter App</h1>
+        <div class="meta" id="meta">For Android 8.0 and newer</div>
+      </div>
+    </div>
+
+    <a class="download" id="download" href="#">Download APK</a>
+    <p class="small" id="note">Free · no account needed</p>
+
+    <div class="qr">
+      <p style="margin:0 0 12px">On a computer? Scan this with your Android phone:</p>
+      <div id="qrcode"></div>
+    </div>
+  </div>
+
+  <h2>How to install</h2>
+  <ol>
+    <li>Tap <strong>Download APK</strong> on your Android phone.</li>
+    <li>When it finishes, tap the download notification (or open it from your <strong>Files</strong> app).</li>
+    <li>If Android says your browser isn't allowed to install apps, tap <strong>Settings</strong>, turn on <strong>Allow from this source</strong>, then go back.</li>
+    <li>Tap <strong>Install</strong>. If Play Protect shows a warning, tap <strong>More details → Install anyway</strong>.</li>
+  </ol>
+
+  <details>
+    <summary>How do I update?</summary>
+    <p>Download and install the new version from this page. It replaces the old one and keeps your data.</p>
+  </details>
+  <details>
+    <summary>Why does Android warn me?</summary>
+    <p>Android shows these prompts for any app installed from outside the Play Store. That's expected for this app.</p>
+  </details>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  function meta(name) {
+    var el = document.querySelector('meta[name="' + name + '"]');
+    return el && el.content ? el.content : '';
+  }
+  // GitHub Pages URL looks like https://OWNER.github.io/REPO/
+  var owner = meta('gh-owner') || location.hostname.split('.')[0];
+  var repo = meta('gh-repo') || location.pathname.split('/').filter(Boolean)[0] || '';
+
+  var dl = document.getElementById('download');
+  dl.href = 'https://github.com/' + owner + '/' + repo + '/releases/latest/download/app.apk';
+
+  var isAndroid = /Android/i.test(navigator.userAgent);
+  var isMobile = isAndroid || /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!isMobile) document.body.classList.add('desktop');
+  if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    document.getElementById('note').textContent = 'This app is for Android phones only.';
+  }
+
+  if (!isMobile && window.QRCode) {
+    new QRCode(document.getElementById('qrcode'), {
+      text: location.href.split('#')[0], width: 180, height: 180,
+      colorDark: '#000000', colorLight: '#ffffff'
+    });
+  }
+
+  fetch('https://api.github.com/repos/' + owner + '/' + repo + '/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rel) {
+      if (!rel) return;
+      var apk = (rel.assets || []).filter(function (a) { return a.name === 'app.apk'; })[0];
+      var parts = [rel.name || rel.tag_name];
+      if (rel.published_at) parts.push(new Date(rel.published_at).toLocaleDateString());
+      if (apk) parts.push((apk.size / 1048576).toFixed(1) + ' MB');
+      document.getElementById('meta').textContent = parts.join(' · ');
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>

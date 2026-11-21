@@ -1,0 +1,13 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+captures/
+.kotlin/
+# Signing keys stay out of the repo (they live in GitHub secrets)
+*.p12
+*.jks
+*.keystore
+signing/
